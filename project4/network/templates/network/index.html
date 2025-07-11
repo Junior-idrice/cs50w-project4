@@ -4,6 +4,11 @@
     TODO
     <h1>Available posts</h1>
     {%if user.is_authenticated%}
-     <p>Feujio</p>
+     <h4>New Post</h4>
+     <form method="post">
+        {% csrf_token %}
+        <textarea rows="4" cols="50"></textarea></br> 
+        <input type="submit" value="post" />
+    </form>
     {%endif%}
 {% endblock %}
