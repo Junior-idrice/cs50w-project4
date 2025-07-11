@@ -8,6 +8,24 @@
         <div>
             <h4>Followers: {{followers.count}}</h4>
             <h4>Following: {{following.count}}</h4>
+            {%if user.is_authenticated%}
+              {% if user != user_profile%}
+                {%if isFollowing%}
+                 <form action="{%url 'unfollow'%}" method="post">
+                    {%csrf_token%}
+                    <input type="hidden" name="userFollow" value="{{user_profile}}"/>
+                    <input type="submit" value="Unfollow"/>
+                 </form>
+                {%else%}
+                  <form action="{%url 'follow'%}" method="post">
+                    {%csrf_token%}
+                    <input type="hidden" name="userFollow" value="{{user_profile}}"/>
+                    <input type="submit" value="follow"/>
+                 </form>
+
+                {%endif%}
+              {%endif%}
+            {%endif%}
         </div>
 
     </div>

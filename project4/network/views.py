@@ -98,8 +98,22 @@ def profile(request, user_id):
         following = Follow.objects.filter(user=user)
         followers = Follow.objects.filter(user_follower=user)
 
+        try:
+            checkFollow = followers.filter(user=User.objects.get(pk=request.user.id))
+            print(checkFollow)
+            if len(checkFollow) != 0:
+                isFollowing = True
+            else:
+                isFollowing = False
+        except:
+            isFollowing = False
+
+
+
         
         context = {
+            "isFollowing":isFollowing,
+            "user_profile":user,
             "following":following,
             "followers":followers,
             "name":user.username,
@@ -110,3 +124,22 @@ def profile(request, user_id):
     
         return render(request, "network/profile.html", context)
 
+def follow(request):
+    userFollow = request.POST['userFollow']
+    UserP = User.objects.get(pk=request.user.id)
+    userdata = User.objects.get(username=userFollow)
+    per = Follow(user=UserP, user_follower = userdata)
+    per.save()
+
+    user_id = userdata.id
+    return HttpResponseRedirect(reverse(profile, kwargs={'user_id':user_id}))
+
+def unfollow(request):
+    userFollow = request.POST['userFollow']
+    UserP = User.objects.get(pk=request.user.id)
+    userdata = User.objects.get(username=userFollow)
+    per = Follow.objects.get(user=UserP, user_follower = userdata)
+    per.delete()
+
+    user_id = userdata.id
+    return HttpResponseRedirect(reverse(profile, kwargs={'user_id':user_id}))
