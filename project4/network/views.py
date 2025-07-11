@@ -3,12 +3,17 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from.models import Posts
 
 from .models import User
 
 
 def index(request):
-    return render(request, "network/index.html")
+    posts = Posts.objects.all().order_by('id').reverse()
+    context = {
+        "posts":posts
+    }
+    return render(request, "network/index.html", context)
 
 
 def login_view(request):
@@ -65,3 +70,11 @@ def register(request):
 
 #My code
 #making new post
+
+def post(request):
+    if request.method == "POST":
+        content = request.POST['content']
+        user = User.objects.get(pk=request.user.id)
+        post = Posts(content=content, user=user)
+        post.save()
+        return HttpResponseRedirect(reverse('index'))
