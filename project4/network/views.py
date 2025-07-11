@@ -9,11 +9,12 @@ from .models import User
 from django.core.paginator import Paginator
 
 def index(request):
+    posts = Posts.objects.all().order_by('id').reverse()
     pagi = Paginator(posts, 10)
     paginumber = request.GET.get('page')
     pagePosts = pagi.get_page(paginumber) 
 
-    posts = Posts.objects.all().order_by('id').reverse()
+    
     context = {
         "posts":posts,
         "pagePosts":pagePosts
