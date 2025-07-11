@@ -6,13 +6,19 @@ from django.urls import reverse
 from.models import Posts
 
 from .models import User
-
+from django.core.paginator import Paginator
 
 def index(request):
+    pagi = Paginator(posts, 10)
+    paginumber = request.GET.get('page')
+    pagePosts = pagi.get_page(paginumber) 
+
     posts = Posts.objects.all().order_by('id').reverse()
     context = {
-        "posts":posts
+        "posts":posts,
+        "pagePosts":pagePosts
     }
+   
     return render(request, "network/index.html", context)
 
 
