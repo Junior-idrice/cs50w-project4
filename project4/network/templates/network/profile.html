@@ -1,0 +1,28 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    TODO
+    <h1>{{name}}</h1>
+    
+
+    <div>
+        {%for post in pagePosts %}
+          <div>
+            <h2>{{post.user}}</h2>
+            <h6>{{post.content}}</h6>
+            <p>{{post.date}}</p>
+          </div>
+        {%endfor%}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {%if pagePosts.has_previous %}
+               <li class="page-item"><a class="page-link" href="?page={{pagePosts.previous_page_number}}">Previous</a></li>
+            {%endif%}
+            {%if pagePosts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{pagePosts.next_page_number}}">Next</a></li>
+            {%endif%}
+        </ul>
+    </nav>
+{% endblock %}

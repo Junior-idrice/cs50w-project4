@@ -85,3 +85,23 @@ def post(request):
         post = Posts(content=content, user=user)
         post.save()
         return HttpResponseRedirect(reverse('index'))
+    
+
+def profile(request, user_id):
+        user = User.objects.get(pk=user_id)
+        Uposts = Posts.objects.filter(user=user).order_by('id').reverse()
+        
+        pagi = Paginator(Uposts, 10)
+        paginumber = request.GET.get('page')
+        pagePosts = pagi.get_page(paginumber) 
+
+        
+        context = {
+            "name":user.username,
+            "posts":Uposts,
+            "pagePosts":pagePosts,
+            
+        }
+    
+        return render(request, "network/profile.html", context)
+
