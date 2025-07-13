@@ -19,7 +19,24 @@
 
         // Function for the linebreaks
         function likedd(id,liked){
-            console.log(id)
+            if(liked.indexOf(id)>=0){
+                let liiked = true
+            }else{
+                let liiked = false
+            }
+            if(liiked === true){
+                fetch(`/removeslike/${id}`)
+                .then(response => response.json)
+                .then(result =>{
+                    console.log(result)
+                })
+            }else{
+                 fetch(`/addlike/${id}`)
+                .then(response => response.json)
+                .then(result =>{
+                    console.log(result)
+                })
+            }
         }
 
 

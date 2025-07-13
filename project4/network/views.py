@@ -39,6 +39,30 @@ def index(request):
     return render(request, "network/index.html", context)
 
 
+#this is to add & remove a post
+def addlike(request, id_post):
+    post = Posts.objects.get(pk=id_post)
+    user = User.objects.get(pk=request.user.id)
+    like = Like(user=user, post=post)
+    like.save()
+    return JsonResponse({
+            "message":"added like successfully ",
+            
+        })
+
+def removelike(request, id_post):
+    post = Posts.objects.get(pk=id_post)
+    user = User.objects.get(pk=request.user.id)
+    like = Like.objects.filter(user=user, post=post)
+    like.delete()
+    return JsonResponse({
+            "message":"removed like successfully ",
+            
+        })
+
+
+
+
 def login_view(request):
     if request.method == "POST":
 
