@@ -22,6 +22,9 @@
     
         function saveChanges(id){
             const elt=document.getElementById(`text_${id}`).value;
+            const content  = document.getElementById(`content_${id}`)
+            document hide = document.getElementById(`modal_edit_post_${id}`)
+
             console.log("hi")
             fetch(`/edit/${id}`,{
                 method: "POST",
@@ -32,7 +35,24 @@
             })
             .then(response => response.json())
             .then(result =>
-             console.log(result)
+             content.innerHTML = result.data
+               // on every modal change state like in hidden modal
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            modal.setAttribute('style', 'display: none');
+            
+            // get modal backdrops
+            const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
+
+            // remove every modal backdrop
+            for(let i=0; i<modalsBackdrops.length; i++) {
+            document.body.removeChild(modalsBackdrops[i]);
+            }
+
+             
+
+
+
 
             )
         }
@@ -52,7 +72,7 @@
         {%for post in pagePosts %}
           <div>
             <h2><a href="{%url 'profile' user_id=post.user.id%}">{{post.user}}</a></h2>
-            <h6>{{post.content}}</h6>
+            <h6 id="content_{{post.id}}">{{post.content}}</h6>
             <p>{{post.date}}</p>
 
             <!--Using js and bootstrap for this section-->
