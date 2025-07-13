@@ -7,7 +7,7 @@ from.models import Posts
 from django.http import JsonResponse
 import json
 
-
+from django.contrib.auth.decorators import login_required
 from .models import User,Follow,Like
 from django.core.paginator import Paginator
 
@@ -40,6 +40,7 @@ def index(request):
 
 
 #this is to add & remove a post
+@login_required
 def addlike(request, id_post):
     post = Posts.objects.get(pk=id_post)
     user = User.objects.get(pk=request.user.id)
@@ -47,9 +48,11 @@ def addlike(request, id_post):
     like.save()
     return JsonResponse({
             "message":"added like successfully ",
+            "likes":post.like_post.count()
             
         })
 
+@login_required
 def removelike(request, id_post):
     post = Posts.objects.get(pk=id_post)
     user = User.objects.get(pk=request.user.id)
@@ -57,6 +60,7 @@ def removelike(request, id_post):
     like.delete()
     return JsonResponse({
             "message":"removed like successfully ",
+            "likes":post.like_post.count()
             
         })
 

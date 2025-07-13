@@ -47,24 +47,39 @@
         function likedd(id) {
                 const button = document.getElementById(`${id}`);
                 const isLiked = button.dataset.liked === "true";
+                const likeCount = document.getElementById(`like_count_${id}`);
 
                 button.classList.remove("thumbs-up", "thumbs-down");
 
                 if (isLiked) {
-                    fetch(`/removeslike/${id}`)
+                    fetch(`/removeslike/${id}`,{
+                           method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRFToken": getCookies("csrftoken")
+                            }
+                    })
                         .then(response => response.json())
                         .then(result => {
                             button.classList.add("thumbs-up");
                             button.innerText = "👍";
                             button.dataset.liked = "false";
+                            likeCount.innerText = result.likes; 
                         });
                 } else {
-                    fetch(`/addlike/${id}`)
+                    fetch(`/addlike/${id}`,{
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRFToken": getCookies("csrftoken")
+                            }
+                    })
                         .then(response => response.json())
                         .then(result => {
                             button.classList.add("thumbs-down");
                             button.innerText = "👎";
                             button.dataset.liked = "true";
+                            likeCount.innerText = result.likes;  
                         });
                 }
             }
@@ -149,19 +164,27 @@
             </div>
             </div>
 
-            {%else%}<!--
-             {%if post.id in liked%}
-               <button class="thumbs-down" onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👎</button>
-             {%else%}
-               <button class="thumbs-up" onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👍</button>
-             {%endif%}-->
-
-             <button id="{{ post.id }}"
+            {%else%}
+              <!--<button id="{{ post.id }}"
                 class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
                 data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
                 onclick="likedd({{ post.id }})">
                 {% if post.id in liked %}👎{% else %}👍{% endif %}
-                </button>
+                </button>-->
+                <div class="post" id="post_{{ post.id }}">
+                    <p id="content_{{ post.id }}">{{ post.content }}</p>
+
+                    <!-- Like Button -->
+                    <button id="{{ post.id }}"
+                            class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
+                            data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
+                            onclick="likedd({{ post.id }})">
+                        {% if post.id in liked %}👎{% else %}👍{% endif %}
+                    </button>
+
+                    <!-- Like Count -->
+                    <span id="like_count_{{ post.id }}">{{ post.like_post.count  }}</span> likes
+                    </div>
 
 
 
