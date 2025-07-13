@@ -23,7 +23,7 @@
         function saveChanges(id){
             const elt=document.getElementById(`text_${id}`).value;
             const content  = document.getElementById(`content_${id}`)
-            document hide = document.getElementById(`modal_edit_post_${id}`)
+            const modal = document.getElementById(`modal_edit_post_${id}`)
 
             console.log("hi")
             fetch(`/edit/${id}`,{
@@ -35,7 +35,7 @@
             })
             .then(response => response.json())
             .then(result =>{
-             content.innerHTML = result.data
+             content.innerHTML = result.value
                // on every modal change state like in hidden modal
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
