@@ -8,17 +8,30 @@ from django.http import JsonResponse
 import json
 
 
-from .models import User,Follow
+from .models import User,Follow,Like
 from django.core.paginator import Paginator
 
 def index(request):
+    #FOR THE POST & PAGINATION ISSUE
     posts = Posts.objects.all().order_by('id').reverse()
     pagi = Paginator(posts, 10)
     paginumber = request.GET.get('page')
     pagePosts = pagi.get_page(paginumber) 
 
+    #FOR THE LIKES
+    likes = Like.objects.all()
+    liked = []
+    try:
+        for like in likes:
+            if like.user.id == request.user.id:
+                liked.append(like.post.id)
+    except:
+        liked=[]
+
+
     
     context = {
+        "liked":liked,
         "posts":posts,
         "pagePosts":pagePosts
     }
