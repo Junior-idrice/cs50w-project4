@@ -34,7 +34,7 @@
                 })
             })
             .then(response => response.json())
-            .then(result =>
+            .then(result =>{
              content.innerHTML = result.data
                // on every modal change state like in hidden modal
             modal.classList.remove('show');
@@ -54,7 +54,7 @@
 
 
 
-            )
+        })
         }
     </script>
     TODO
