@@ -18,26 +18,57 @@
         }
 
         // Function for the linebreaks
-        function likedd(id,liked){
+       /* function likedd(id,liked){
+            const button = document.getElementById(`${id}`)
+            button.classList.remove("thumbs-up")
+            button.classList.remove("thumbs-down")
+
             if(liked.indexOf(id)>=0){
-                let liiked = true
+                var liiked = true
             }else{
-                let liiked = false
+                var liiked = false
             }
             if(liiked === true){
                 fetch(`/removeslike/${id}`)
-                .then(response => response.json)
+                .then(response => response.json())
                 .then(result =>{
-                    console.log(result)
+                    button.classList.add('thumbs-up')
                 })
             }else{
                  fetch(`/addlike/${id}`)
-                .then(response => response.json)
+                .then(response => response.json())
                 .then(result =>{
-                    console.log(result)
+                    button.classList.add('thumbs-down')
                 })
             }
-        }
+            liiked = !liiked
+        }*/
+
+        function likedd(id) {
+                const button = document.getElementById(`${id}`);
+                const isLiked = button.dataset.liked === "true";
+
+                button.classList.remove("thumbs-up", "thumbs-down");
+
+                if (isLiked) {
+                    fetch(`/removeslike/${id}`)
+                        .then(response => response.json())
+                        .then(result => {
+                            button.classList.add("thumbs-up");
+                            button.innerText = "👍";
+                            button.dataset.liked = "false";
+                        });
+                } else {
+                    fetch(`/addlike/${id}`)
+                        .then(response => response.json())
+                        .then(result => {
+                            button.classList.add("thumbs-down");
+                            button.innerText = "👎";
+                            button.dataset.liked = "true";
+                        });
+                }
+            }
+
 
 
 
@@ -118,12 +149,20 @@
             </div>
             </div>
 
-            {%else%}
+            {%else%}<!--
              {%if post.id in liked%}
-               <button onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👎</button>
+               <button class="thumbs-down" onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👎</button>
              {%else%}
-               <button onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👍</button>
-             {%endif%}
+               <button class="thumbs-up" onclick="likedd({{post.id}}, {{liked}})" id="{{post.id}}">👍</button>
+             {%endif%}-->
+
+             <button id="{{ post.id }}"
+                class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
+                data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
+                onclick="likedd({{ post.id }})">
+                {% if post.id in liked %}👎{% else %}👍{% endif %}
+                </button>
+
 
 
 
