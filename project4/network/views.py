@@ -189,7 +189,7 @@ def unfollow(request):
     return HttpResponseRedirect(reverse(profile, kwargs={'user_id':user_id}))
 
 
-def following(request):
+'''def following(request):
     currentUser = User.objects.get(pk=request.user.id)
     followers = Follow.objects.filter(user=currentUser)
     posts = Posts.objects.all().order_by('id').reverse()
@@ -208,7 +208,26 @@ def following(request):
         "pagePosts":pagePosts
     }
    
-    return render(request, "network/following.html", context)
+    return render(request, "network/following.html", context)'''
+
+@login_required
+def following(request):
+    current_user = request.user
+
+    # Get the users this user is following
+    following_users = Follow.objects.filter(user=current_user).values_list('user_follower', flat=True)
+
+    # Get posts only from those users
+    followed_posts = Posts.objects.filter(user__in=following_users).order_by('-id')
+
+    # Paginate the posts
+    paginator = Paginator(followed_posts, 10)
+    page_number = request.GET.get('page')
+    page_posts = paginator.get_page(page_number)
+
+    return render(request, "network/following.html", {
+        "pagePosts": page_posts
+    })
 
 
 def edit(request,id_post):

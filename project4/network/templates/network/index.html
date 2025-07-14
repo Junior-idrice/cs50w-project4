@@ -121,79 +121,83 @@
         }
     </script>
     TODO
-    <h1>Available posts</h1>
-    {%if user.is_authenticated%}
-     <h4>New Post</h4> 
-     <form method="post" action="{%url 'post'%}">
-        {% csrf_token %}
-        <textarea name="content" rows="4" cols="50"></textarea></br> 
-        <input type="submit" value="post" />
-    </form>
-    {%endif%}
-
-    <div>
-        {%for post in pagePosts %}
-          <div>
-            <h2><a href="{%url 'profile' user_id=post.user.id%}">{{post.user}}</a></h2>
-            <h6 id="content_{{post.id}}">{{post.content}}</h6>
-            <p>{{post.date}}</p>
-
-            <!--Using js and bootstrap for this section-->
+    <div class="main">
+            <h1>Available posts</h1>
+            <div class="make_post">
             {%if user.is_authenticated%}
-                {%if user == post.user%}
-                   <div>
-                    <button data-target="#modal_edit_post_{{post.id}}" type="submit" data-toggle="modal">Edit</button>
-                   </div>
-                   <div id="modal_edit_post_{{post.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_edit_post_{{post.id}}_label" aria-hidden="true" >
-                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit post</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea id="text_{{post.id}}"name="content">{{post.content}}</textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button onclick="saveChanges({{post.id}})" type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+            <h4>New Post</h4> 
+            <form method="post" action="{%url 'post'%}">
+                {% csrf_token %}
+                <textarea name="content" rows="4" cols="50"></textarea></br> 
+                <input type="submit" value="post" />
+            </form>
             </div>
-            </div>
+            {%endif%}
 
-            {%else%}
-              <!--<button id="{{ post.id }}"
-                class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
-                data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
-                onclick="likedd({{ post.id }})">
-                {% if post.id in liked %}👎{% else %}👍{% endif %}
-                </button>-->
-                <div class="post" id="post_{{ post.id }}">
-                    <p id="content_{{ post.id }}">{{ post.content }}</p>
+            <div>
+                {%for post in pagePosts %}
+                <div class="available_post">
+                    <h2><a href="{%url 'profile' user_id=post.user.id%}">{{post.user}}</a></h2>
+                    <h6 id="content_{{post.id}}">{{post.content}}</h6>
+                    <p><i>{{post.date}}</i></p>
 
-                    <!-- Like Button -->
-                    <button id="{{ post.id }}"
-                            class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
-                            data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
-                            onclick="likedd({{ post.id }})">
+                    <!--Using js and bootstrap for this section-->
+                    {%if user.is_authenticated%}
+                        {%if user == post.user%}
+                        <div>
+                            <button data-target="#modal_edit_post_{{post.id}}" type="submit" data-toggle="modal">Edit</button>
+                        </div>
+                        <div id="modal_edit_post_{{post.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_edit_post_{{post.id}}_label" aria-hidden="true" >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit post</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea id="text_{{post.id}}"name="content">{{post.content}}</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button onclick="saveChanges({{post.id}})" type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
+                    {%else%}
+                    <!--<button id="{{ post.id }}"
+                        class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
+                        data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
+                        onclick="likedd({{ post.id }})">
                         {% if post.id in liked %}👎{% else %}👍{% endif %}
-                    </button>
+                        </button>-->
+                        <div class="post" id="post_{{ post.id }}">
+                            <p id="content_{{ post.id }}">{{ post.content }}</p>
 
-                    <!-- Like Count -->
-                    <span id="like_count_{{ post.id }}">{{ post.like_post.count  }}</span> likes
+                            <!-- Like Button -->
+                            <button id="{{ post.id }}"
+                                    class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
+                                    data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
+                                    onclick="likedd({{ post.id }})">
+                                {% if post.id in liked %}👎{% else %}👍{% endif %}
+                            </button>
+
+                            <!-- Like Count -->
+                            <span id="like_count_{{ post.id }}">{{ post.like_post.count  }}</span> likes
+                            </div>
+
+
+
+
+                                    {%endif%}
+                                {%endif%}
+                            </div>
+                            {%endfor%}
+                        </div>
                     </div>
-
-
-
-
-                            {%endif%}
-                        {%endif%}
-                    </div>
-                    {%endfor%}
-                </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination">

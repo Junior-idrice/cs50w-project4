@@ -2,7 +2,7 @@
 
 {% block body %}
  
-     
+     <!---->
     <div>
         {%for post in pagePosts %}
           <div>
@@ -10,6 +10,8 @@
             <h6>{{post.content}}</h6>
             <p>{{post.date}}</p>
           </div>
+        {% empty %}
+        <p>No posts from users you follow.</p>
         {%endfor%}
     </div>
 
