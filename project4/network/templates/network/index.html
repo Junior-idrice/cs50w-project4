@@ -120,7 +120,7 @@
         })
         }
     </script>
-    TODO
+    
     <div class="main">
             <h1>Available posts</h1>
             <div class="make_post">
@@ -145,7 +145,7 @@
                     {%if user.is_authenticated%}
                         {%if user == post.user%}
                         <div>
-                            <button data-target="#modal_edit_post_{{post.id}}" type="submit" data-toggle="modal">Edit</button>
+                            <button id="edit" data-target="#modal_edit_post_{{post.id}}" type="submit" data-toggle="modal">Edit</button>
                         </div>
                         <div id="modal_edit_post_{{post.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_edit_post_{{post.id}}_label" aria-hidden="true" >
                         <div class="modal-dialog" role="document">
@@ -179,7 +179,7 @@
 
                             <!-- Like Button -->
                             <button id="{{ post.id }}"
-                                    class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
+                                    class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %} btn"
                                     data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
                                     onclick="likedd({{ post.id }})">
                                 {% if post.id in liked %}👎{% else %}👍{% endif %}

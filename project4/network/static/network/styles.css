@@ -18,3 +18,14 @@ nav{
     padding: 10px;
     
 }
+#edit{
+    background-color: rgb(226, 214, 214);
+    border: 1px solid rgb(226, 214, 214);
+    border-radius: 5px;
+}
+.btn{
+    background-color: #cc999915;
+    border: 1px solid black;
+    border-radius: 5px
+    ;
+}
