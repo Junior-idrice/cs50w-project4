@@ -38,3 +38,6 @@ nav{
 }
 
 /*FOLLOWING SECTION*/
+.following-post{
+    border: 1px solid black;
+}
