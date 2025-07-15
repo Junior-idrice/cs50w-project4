@@ -31,7 +31,7 @@
     </div>
     
 
-    <div class="profile-main">
+    <div class="profile-main" id="profile-post">
         {%for post in pagePosts %}
           <div>
             <h2><a href="{%url 'profile' user_id=post.user.id%}">{{post.user}}</a></h2>
