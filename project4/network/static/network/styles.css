@@ -31,7 +31,11 @@ nav{
 }
 
 /*THE PROFILE SECTION*/
+.cont{
+    margin-left: 5px;
+}
 .profile-main{
+    margin-left: 5px;
     border: 1px solid black;
     padding: 5px;
 }
