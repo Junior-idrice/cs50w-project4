@@ -29,3 +29,8 @@ nav{
     border-radius: 5px
     ;
 }
+
+/*THE PROFILE SECTION*/
+.profile-main{
+    border: 1px solid black;
+}
