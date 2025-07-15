@@ -31,14 +31,8 @@ nav{
 }
 
 /*THE PROFILE SECTION*/
-.profile-main{
+.profile-main, #profile-post{
     margin: 8px;
     border: 1px solid black;
     padding: 5px;
-}
-#profile-post{
-    border: 1px solid black;
-    margin: 8px;
-    padding: 5px;
-
 }
