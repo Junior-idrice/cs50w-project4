@@ -168,12 +168,6 @@
     </div>
 
                     {%else%}
-                    <!--<button id="{{ post.id }}"
-                        class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %}"
-                        data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
-                        onclick="likedd({{ post.id }})">
-                        {% if post.id in liked %}👎{% else %}👍{% endif %}
-                        </button>-->
                         <div class="post" id="post_{{ post.id }}">
                             <p id="content_{{ post.id }}">{{ post.content }}</p>
 
