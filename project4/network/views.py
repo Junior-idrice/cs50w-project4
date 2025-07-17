@@ -189,26 +189,6 @@ def unfollow(request):
     return HttpResponseRedirect(reverse(profile, kwargs={'user_id':user_id}))
 
 
-'''def following(request):
-    currentUser = User.objects.get(pk=request.user.id)
-    followers = Follow.objects.filter(user=currentUser)
-    posts = Posts.objects.all().order_by('id').reverse()
-
-    ffl = []
-
-    for p in posts:
-        for i in followers:
-            ffl.append(p)
-    
-    pagi = Paginator(followers, 10)
-    paginumber = request.GET.get('page')
-    pagePosts = pagi.get_page(paginumber) 
-
-    context = {
-        "pagePosts":pagePosts
-    }
-   
-    return render(request, "network/following.html", context)'''
 
 @login_required
 def following(request):
