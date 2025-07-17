@@ -117,7 +117,7 @@ def register(request):
 
 
 #My code.....
-#making new post
+#making new post....
 
 def post(request):
     if request.method == "POST":
