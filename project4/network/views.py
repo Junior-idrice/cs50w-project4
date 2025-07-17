@@ -26,10 +26,7 @@ def index(request):
             if like.user.id == request.user.id:
                 liked.append(like.post.id)
     except:
-        liked=[]
-
-
-    
+        liked=[]    
     context = {
         "liked":liked,
         "posts":posts,
@@ -119,7 +116,7 @@ def register(request):
         return render(request, "network/register.html")
 
 
-#My code
+#My code.....
 #making new post
 
 def post(request):
