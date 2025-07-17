@@ -1,5 +1,4 @@
 {% extends "network/layout.html" %}
-
 {% block body %}
  
      
@@ -18,10 +17,10 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             {%if pagePosts.has_previous %}
-               <li class="page-item"><a class="page-link" href="?page={{pagePosts.previous_page_number}}">Previous</a></li>
+               <li class="page-item"><a class="page-link" href="?page={{pagePosts.previous_page_number}}">previous</a></li>
             {%endif%}
             {%if pagePosts.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{pagePosts.next_page_number}}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{pagePosts.next_page_number}}">next</a></li>
             {%endif%}
         </ul>
     </nav>
