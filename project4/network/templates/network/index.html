@@ -125,7 +125,7 @@
             <h1>Available posts</h1>
             <div class="make_post">
             {%if user.is_authenticated%}
-            <h4>New Post</h4> 
+            <h4>Make a new post</h4> 
             <form method="post" action="{%url 'post'%}">
                 {% csrf_token %}
                 <textarea name="content" rows="4" cols="50"></textarea></br> 
