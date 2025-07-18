@@ -119,6 +119,7 @@
                     {%if user.is_authenticated%}
                         {%if user == post.user%}
                         <div>
+                            <span id="like_count_{{ post.id }}">{{ post.like_post.count  }}</span> likes
                             <button id="edit" data-target="#modal_edit_post_{{post.id}}" type="submit" data-toggle="modal">Edit</button>
                         </div>
                         <div id="modal_edit_post_{{post.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_edit_post_{{post.id}}_label" aria-hidden="true" >
