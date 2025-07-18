@@ -17,32 +17,6 @@
             return cookieValue;
         }
 
-        // Function for the linebreaks
-       /* function likedd(id,liked){
-            const button = document.getElementById(`${id}`)
-            button.classList.remove("thumbs-up")
-            button.classList.remove("thumbs-down")
-
-            if(liked.indexOf(id)>=0){
-                var liiked = true
-            }else{
-                var liiked = false
-            }
-            if(liiked === true){
-                fetch(`/removeslike/${id}`)
-                .then(response => response.json())
-                .then(result =>{
-                    button.classList.add('thumbs-up')
-                })
-            }else{
-                 fetch(`/addlike/${id}`)
-                .then(response => response.json())
-                .then(result =>{
-                    button.classList.add('thumbs-down')
-                })
-            }
-            liiked = !liiked
-        }*/
 
         function likedd(id) {
                 const button = document.getElementById(`${id}`);
@@ -182,10 +156,6 @@
                             <!-- Like Count -->
                             <span id="like_count_{{ post.id }}">{{ post.like_post.count  }}</span> likes
                             </div>
-
-
-
-
                                     {%endif%}
                                 {%endif%}
                             </div>
