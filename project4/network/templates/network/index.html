@@ -97,8 +97,8 @@
     
     <div class="main">
             <h1>Available posts</h1>
-            <div class="make_post">
             {%if user.is_authenticated%}
+            <div class="make_post">
             <h4>Make a new post</h4> 
             <form method="post" action="{%url 'post'%}">
                 {% csrf_token %}
