@@ -147,7 +147,7 @@
 
                             <!-- Like Button -->
                             <button id="{{ post.id }}"
-                                    class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %} btn"
+                                    class="{% if post.id in liked %}thumbs-down{% else %}thumbs-up{% endif %} btnn"
                                     data-liked="{% if post.id in liked %}true{% else %}false{% endif %}"
                                     onclick="likedd({{ post.id }})">
                                 {% if post.id in liked %}👎{% else %}👍{% endif %}

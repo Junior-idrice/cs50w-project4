@@ -1,11 +1,12 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
-    <h2>{{name}}</h2>
+    
+    
 
     <div class="cont">
         <div class="profile-main">
+          <h2>{{name}}</h2>
             <h4>Followers: {{followers.count}}</h4>
             <h4>Following: {{following.count}}</h4>
             {%if user.is_authenticated%}
